@@ -1,0 +1,35 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Next.js App Development Guide
+
+This project is a Next.js app designed for bill splitting among roommates. Follow these guidelines for development:
+
+## Main Structure
+- The main entry point is `pages/index.tsx` (or `pages/index.js`), which serves as the home page and primary UI for the app.
+- All UI and logic are implemented using React components and hooks.
+- Styling is handled with Tailwind CSS, configured globally.
+
+## Key Files
+- Main page: [pages/index.tsx](mdc:pages/index.tsx) or [pages/index.js](mdc:pages/index.js)
+- Tailwind config: [tailwind.config.js](mdc:tailwind.config.js)
+- Global styles: [styles/globals.css](mdc:styles/globals.css)
+- App configuration: [next.config.js](mdc:next.config.js)
+
+## Best Practices
+- Use React hooks for all state management (no external state libraries).
+- Keep roommate names, items, and assignments in React state.
+- Use functional components and TypeScript where possible.
+- Ensure all UI is mobile responsive using Tailwind's breakpoints.
+- Follow the task list in [TASKS.md](mdc:TASKS.md) and the plan in [PLAN.md](mdc:PLAN.md) for feature implementation order and requirements.
+- No backend or database is required; all data is stored in browser memory.
+
+## Deployment
+- Deploy using Vercel for best compatibility with Next.js.
+- No environment variables or server-side code are needed for this project.
+
+## Additional Notes
+- Reference [TASKS.md](mdc:TASKS.md) for a detailed breakdown of features and progress.
+- See [PLAN.md](mdc:PLAN.md) for the overall project vision and example output.
