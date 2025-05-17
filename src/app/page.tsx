@@ -39,7 +39,14 @@ function getInitialItems() {
   ];
 }
 
-function sanitizeAssigned(items, roommatesLength) {
+interface Item {
+  name: string;
+  price: string;
+  assigned: number[];
+  isCommon: boolean;
+}
+
+function sanitizeAssigned(items: Item[], roommatesLength: number): Item[] {
   return items.map(item => ({
     ...item,
     assigned: item.assigned.filter(idx => idx < roommatesLength)
@@ -70,13 +77,13 @@ export default function Home() {
     document.documentElement.classList.toggle('light-mode', isDarkMode);
   };
 
-  const handleRoommateNameChange = (idx, value) => {
+  const handleRoommateNameChange = (idx: number, value: string): void => {
     setRoommates((prev) =>
       prev.map((r, i) => (i === idx ? { ...r, name: value } : r))
     );
   };
 
-  const handleItemChange = (idx, field, value) => {
+  const handleItemChange = (idx: number, field: string, value: string): void => {
     setItems((prev) =>
       prev.map((item, i) =>
         i === idx ? { ...item, [field]: value } : item
@@ -84,7 +91,7 @@ export default function Home() {
     );
   };
 
-  const handleAssignmentChange = (itemIdx, roommateIdx) => {
+  const handleAssignmentChange = (itemIdx: number, roommateIdx: number): void => {
     setItems((prev) =>
       prev.map((item, i) => {
         if (i !== itemIdx) return item;
@@ -100,7 +107,7 @@ export default function Home() {
     );
   };
 
-  const handleCommonChange = (itemIdx, checked) => {
+  const handleCommonChange = (itemIdx: number, checked: boolean): void => {
     setItems((prev) =>
       prev.map((item, i) => {
         if (i !== itemIdx) return item;
@@ -125,17 +132,17 @@ export default function Home() {
     ]);
   };
 
-  const removeItem = (idx) => {
+  const removeItem = (idx: number): void => {
     setItems((prev) => prev.filter((_, i) => i !== idx));
   };
 
-  const handleReset = () => {
+  const handleReset = (): void => {
     setRoommates(getInitialRoommates());
     setItems(getInitialItems());
     setCopied(false);
   };
 
-  const applyQuickSplit = (itemIdx, splitIndex) => {
+  const applyQuickSplit = (itemIdx: number, splitIndex: number): void => {
     if (roommates.length < 2) return;
     
     const split = QUICK_SPLITS[splitIndex].split;
@@ -258,13 +265,13 @@ export default function Home() {
                   style={{ 
                     borderLeft: `4px solid ${r.color}`,
                   }}
-                  onChange={(e) => handleRoommateNameChange(idx, e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleRoommateNameChange(idx, e.target.value)}
                   onFocus={() => {
                     if (r.name === (DEFAULT_ROOMMATES[idx] || `Roommate ${idx + 1}`)) {
                       handleRoommateNameChange(idx, "");
                     }
                   }}
-                  onBlur={e => {
+                  onBlur={(e: React.FocusEvent<HTMLInputElement>) => {
                     if (e.target.value.trim() === "") {
                       handleRoommateNameChange(idx, DEFAULT_ROOMMATES[idx] || `Roommate ${idx + 1}`);
                     }
@@ -299,7 +306,7 @@ export default function Home() {
                         className="input"
                         placeholder="Item name"
                         value={item.name}
-                        onChange={(e) => handleItemChange(idx, "name", e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleItemChange(idx, "name", e.target.value)}
                         maxLength={30}
                       />
                       <div className="relative">
@@ -310,7 +317,7 @@ export default function Home() {
                           type="number"
                           min="0"
                           value={item.price}
-                          onChange={(e) => handleItemChange(idx, "price", e.target.value)}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleItemChange(idx, "price", e.target.value)}
                         />
                       </div>
                     </div>
@@ -321,7 +328,7 @@ export default function Home() {
                           type="checkbox"
                           className="w-4 h-4 rounded border-[var(--border)]"
                           checked={item.isCommon}
-                          onChange={(e) => handleCommonChange(idx, e.target.checked)}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleCommonChange(idx, e.target.checked)}
                         />
                         <span>Split equally among all</span>
                       </label>
