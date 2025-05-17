@@ -88,7 +88,7 @@ export default function Home() {
     setItems((prev) =>
       prev.map((item, i) => {
         if (i !== itemIdx) return item;
-        let assigned = item.assigned.includes(roommateIdx)
+        const assigned = item.assigned.includes(roommateIdx)
           ? item.assigned.filter((id) => id !== roommateIdx)
           : [...item.assigned, roommateIdx];
         return {
@@ -259,7 +259,7 @@ export default function Home() {
                     borderLeft: `4px solid ${r.color}`,
                   }}
                   onChange={(e) => handleRoommateNameChange(idx, e.target.value)}
-                  onFocus={e => {
+                  onFocus={() => {
                     if (r.name === (DEFAULT_ROOMMATES[idx] || `Roommate ${idx + 1}`)) {
                       handleRoommateNameChange(idx, "");
                     }
